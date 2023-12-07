@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Staff Login</title>
+    </head>
+    <body>
+        <p id="LoginPara">
+            Email: <input type="text" id="email">
+            Password: <input type="password" id="password">
+            <button onclick="login()">Submit</button>
+        </p>
+        <p style="color: red" id="ErrorMessages"></p>
+        
+        <script>
+            //Global variables 
+            //loggedInStr is the string that will be displayed when a user is logged in
+            //loginStr is the initial login form HTML that will be displayed before the user logs in
+            //request is an XMLHttpRequest object that will be used to communicate with the server
+    
+            let loggedInStr = "Logged in <button onclick='logout()'>Logout</button>";
+            let loginStr = document.getElementById("LoginPara").innerHTML;
+            let request = new XMLHttpRequest();
+            
+            //This code sets the checkLogin() function to be called when the window loads.
+            window.onload = checkLogin;
+            
+//Checks whether user is logged in.
+//This function checks whether the user is logged in or not by making a GET request to the server's
+//check_login.php script. If the server response is "ok", the user is considered to be logged in and
+//the loggedInStr is displayed. Otherwise, the initial login form HTML loginStr is displayed.
+            function checkLogin(){
+//Create event handler that specifies what should happen when server responds
+                request.onload = function(){
+                    if(request.responseText === "ok"){
+                        document.getElementById("LoginPara").innerHTML = loggedInStr;
+                    }
+                    else{
+                        console.log(request.responseText);
+                        document.getElementById("LoginPara").innerHTML  = loginStr;
+                    }
+                };
+//Set up and send request
+                request.open("GET", "check_login.php");
+                request.send();
+            }
+            
+//Attempts to log in user to server
+ //This function is called when the user clicks the "Submit" button in the login form. It first sets up the request.onload event handler to handle the server response. Then it extracts the email and password data from the form. Finally, it sends a POST request to the server's staffLogin.php script with the email and password data in the request body.
+
+//If the server responds with an HTTP status code of 200,
+//the responseData is checked. If it is "ok", the user is 
+//considered to be logged in and loggedInStr is displayed.
+// If it is anything else, the server response is displayed in the ErrorMessages paragraph.
+
+            function login(){
+               //Create event handler that specifies what should happen when server responds
+                request.onload = function(){
+                    //Check HTTP status code
+                    if(request.status === 200){
+                        //Get data from server
+                        var responseData = request.responseText;
+
+                        //Add data to page
+                        if(responseData === "ok"){
+                            document.getElementById("LoginPara").innerHTML = loggedInStr;
+                            document.getElementById("ErrorMessages").innerHTML = "";//Clear error messages
+                        }
+                        else
+                            document.getElementById("ErrorMessages").innerHTML = request.responseText;
+                    }
+                    else
+                        document.getElementById("ErrorMessages").innerHTML = "Error communicating with server";
+                };
+
+                //Extract login data
+                let usrEmail = document.getElementById("staff_email").value;
+                let usrPassword = document.getElementById("staff_password").value;
+                
+                //Set up and send request
+                request.open("POST", "staffLogin.php");
+                request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                request.send("email=" + usrEmail + "&password=" + usrPassword);
+            }
+            
+            //Logs the user out.
+            function logout(){
+                //Create event handler that specifies what should happen when server responds
+                request.onload = function(){
+                    checkLogin();
+                };
+                //Set up and send request
+                request.open("GET", "logout.php");
+                request.send();
+            }
+            
+        </script>
+    </body>
+</html>
+

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- The title of the website, displayed in the browser tab -->
+  <title>Ecommerce Navigation Bar</title>
+  <!-- This line links the aboutUs.css stylesheet to the HTML document -->
+  <link rel="stylesheet" type="text/css" href="../css/login.css">
+     <!-- This line links the font awesome for social icons -->
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<header>
+    <!--NAVIGATION BAR-->
+<nav>
+  <div class="logo">
+    <img src="../imgs/Glassed_Logo 4.png" alt="logo">
+  </div>
+  <ul class="nav-links">
+    <li><a href="index.php">Home</a></li>
+    <li><a href="rayban.php">Rayban</a></li>
+    <li><a href="chanel.php">Chanel</a></li>
+    <li><a href="AbousUs.html">About Us</a></li>
+    <li><a href="basket.php">Basket</a></li>
+  </ul>
+  <ul class="nav-left">
+    <a href="login.html">Logging In..</a>
+  </ul>
+</nav>
+</header>
+<body>
+  <div class="login-container">
+    <h2>Welcome</h2>
+    <p id =LoginPara>
+      Email: <br><input type="email" placeholder="Email" id = "email"><br>
+      Password:<br><input type="password" placeholder="Password"id = "password">
+      <button onclick="login()" input type="submit">Login</button>
+    </p>
+    <a href="staffLogin.html"> <!--when button is clicked it will direct user to the staff admon page-->
+      <button onclick="staffLogin.html">Are you a part of our team?</button></a>
+  </div>  
+
+  <script>
+    //Global variables
+    let loggedInStr = "<h2>Logged In</h2><br> <button onclick= 'logout()'>Logout</button>";
+    let loginStr = document.getElementById("LoginPara").innerHTML;
+    let request = new XMLHttpRequest();
+    //check login when page loads
+    window.onload = checkLogin;
+
+    //check whether user is logged in or not
+    function checkLogin(){
+      //when response is received
+      request.onload = function(){
+        if (request.response === "ok"){
+          document.getElementById("LoginPara").innerHTML = loggedInStr;
+        }
+        else
+        {
+          console.log(request.responseText)
+          document.getElementById("LoginPara").innerHTML = loginStr;
+        }
+      }
+      //send request to check_login.php
+      request.open("GET", "check_login.php");
+      request.send();
+      
+    }
+    //Attempt to log the user in with the given email and password when the login button is clicked
+    function login(){
+      request.onload = function(){
+        //check HTTP status code
+        if (request.status === 200){
+          //get data from server
+          var responseData = request.responseText;
+          //Add data to page
+          if (responseData === "ok"){
+            document.getElementById("LoginPara").innerHTML = loggedInStr;
+          }
+          else{//if login fails
+            document.getElementById("LoginPara").innerHTML = "<h2>"+ responseData+"</h2><button onclick= 'location.reload()'>Try Again</button><br><br><br><a href='register.html'><button>Register</button></a>";//reload page
+          }
+        }
+        else{
+          alert("Error communicating with server: " + request.status);//if request fails
+        }
+      }
+      //Extract login data
+      let email = document.getElementById("email").value;//get email from input
+      let password = document.getElementById("password").value;//get password from input
+
+      //Set up and send request
+      request.open("POST", "login.php");//set up request
+      request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//set up request
+      request.send("email=" + email + "&password=" + password);//send request
+    }
+    //logs the user out when the logout button is clicked
+    function logout(){
+      request.open("GET", "logout.php");//set up request
+      request.send();//send request
+      request.onreadystatechange = function(){//Call a function when the state changes.
+        if (this.readyState == 4 && this.status == 200){ //if request is successful
+          document.getElementById("login").innerHTML = loginStr;
+        }
+      }
+      //reload page to update login status
+      location.reload();
+
+    }
+
+  </script>
+
+</body>
+<!--FOOTER-->
+<!-- Footer section with contact and copyright information -->
+
+<!-- Footer div for contact information -->
+<footer>
+  <div class="footer-container">
+    <div class="footer-left">
+      <h3>Quick Info</h3> <!-- Section for brief introduction -->
+      <p>Glassed offers a wide selection of premium sunglasses from top brands like Rayban and Chanel. Glassed ensures
+        100% authenticity and customer satisfaction on every purchase.
+        Shop now for the latest styles and trends.</p> <!-- Introduction content -->
+    </div>
+    <div class="footer-right">
+      <h3>Contact Us</h3> <!-- Section for contact information -->
+      <p>Email: Glassed@shades.com</p> <!-- Email -->
+      <p>Phone: 042-550-6789</p> <!-- Phone number -->
+      <p>Address: Al Khail Street, Dubai, UAE</p> <!-- Address -->
+    </div>
+    <div class="footer-middle">
+      <h3>Social</h3> <!-- Section for contact Social -->
+      <a href="https://web.facebook.com" class="fa fa-facebook-square"></a><!-- Facebook -->
+      <a href="https://twitter.com" class="fa fa-twitter-square"></a><!-- Twitter -->
+      <a href="https://www.instagram.com" class="fa fa-instagram"></a><!-- Instagram -->
+    </div>
+    <div class="footer-copyright">
+      <p>Copyright © Glassed. All rights reserved.</p> <!-- Copyright information -->
+      <p>Sunglasses Like No other</p> <!-- Tagline -->
+    </div>
+  </div>
+</footer>
+</html>

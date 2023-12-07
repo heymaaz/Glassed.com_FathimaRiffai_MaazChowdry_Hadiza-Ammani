@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- The title of the website, displayed in the browser tab -->
+  <title>Ecommerce Navigation Bar</title>
+  <!-- This line links the aboutUs.css stylesheet to the HTML document -->
+  <link rel="stylesheet" type="text/css" href="../css/staff_ViewProds.css">
+     <!-- This line links the font awesome for social icons -->
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <style>
+    /* CSS for navigation bar */
+    #navbar {
+      background-color: #333;
+      overflow: hidden;
+    }
+    #navbar a {
+      float: left;
+      color: white;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+      font-size: 17px;
+    }
+    #navbar a:hover {
+      background-color: #ddd;
+      color: black;
+    }
+    #navbar a.active {
+      background-color: #ada4a4;
+      color: white;
+    }
+  </style>
+  </head>
+
+      <nav>
+          <div class="logo">
+            <img src="../imgs/Glassed_Logo 4.png" alt="logo">
+          </div>
+          <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="rayban.html">Rayban</a></li>
+            <li><a href="chanel.html">Chanel</a></li>
+            <li><a href="AbousUs.html">About Us</a></li>
+            <li><a href="editProfile.html">Profile</a></li>
+            <li><a href="basket.html">Basket</a></li>
+          </ul>
+        </nav>      
+<body>
+  <div id="navbar">
+    <a href="staff.ViewEditProds.html">View And Edit Products</a>
+    <a href="staff.addProds.html">Add Products</a>
+    <a href="staff.viewDel.html"class="active">View/Delete Orders</a>
+  </div>
+  
+  <br>
+
+<form action="staff.viewDel.php" method="post">
+  Customer ID: <input type="text" name="id" required>
+  <input type="submit" value="Delete">
+</form>
+
+<br>
+<h1>List all Customer Orders</h1>
+
+<div id="orders"></div>
+<script>
+//Download Orders when page loads
+window.onload = loadOrder;
+
+//Downloads JSON description of orders from server
+function loadOrder() {
+  //Create request object 
+  let request = new XMLHttpRequest();
+
+  //Create event handler that specifies what should happen when server responds
+  request.onload = () => {
+    //Check HTTP status code
+    if (request.status === 200) {
+      //Add data from server to page
+      displayOrder(request.responseText);
+      console.log(request.responseText);
+    } else
+      alert("Error communicating with server: " + request.status);
+  };
+
+  //Set up request and send it
+  request.open("GET", "orders.php");
+  request.send();
+}
+
+//Loads orders into page
+function displayOrder(jsonOrders) {
+  //Convert JSON to array of order objects
+  let orderArray = JSON.parse(jsonOrders);
+
+  //Create HTML table containing order data
+  let htmlStr = "<table>";
+    htmlStr+="<th>Customer Id</th>"
+    htmlStr+="<th>Product Id,Quantity</th>"
+    htmlStr+="<th>Order Total</th>"
+  for (let i = 0; i < orderArray.length; ++i) {
+    htmlStr += "<tr>"
+    htmlStr += "<td>" + String(orderArray[i].customer_id)+ "</td>";
+    orderArray[i].ObjectId
+    let tempstr="";
+    for(let j=0;j<orderArray[i].product_id_qty.length;j++)
+    {
+      if(j!=0)
+        tempstr += "|";
+      tempstr += "      "+orderArray[i].product_id_qty[j]+"      ";
+    }
+    htmlStr += "<td>" + tempstr + "</td>";//orderArray[i].product_id_qty[0] + "</td>";
+    htmlStr += "<td>" + orderArray[i].order_total + " AED </td>";
+    htmlStr += "</tr>";
+  }
+  //Finish off table and add to document
+  htmlStr += "</table>";
+  document.getElementById("orders").innerHTML = htmlStr;
+}
+
+</script>
+
+
+<br> 
+<!-- Footer div for contact information -->
+<footer>
+  <div class="footer-container">
+    <div class="footer-left">
+      <h3>Quick Info</h3> <!-- Section for brief introduction -->
+      <p>Glassed offers a wide selection of premium sunglasses from top brands like Rayban and Chanel. Glassed ensures
+        100% authenticity and customer satisfaction on every purchase.
+        Shop now for the latest styles and trends.</p> <!-- Introduction content -->
+    </div>
+    <div class="footer-right">
+      <h3>Contact Us</h3> <!-- Section for contact information -->
+      <p>Email: Glassed@shades.com</p> <!-- Email -->
+      <p>Phone: 042-550-6789</p> <!-- Phone number -->
+      <p>Address: Al Khail Street, Dubai, UAE</p> <!-- Address -->
+    </div>
+    <div class="footer-middle">
+      <h3>Social</h3> <!-- Section for contact Social -->
+      <a href="https://web.facebook.com" class="fa fa-facebook-square"></a><!-- Facebook -->
+      <a href="https://twitter.com" class="fa fa-twitter-square"></a><!-- Twitter -->
+      <a href="https://www.instagram.com" class="fa fa-instagram"></a><!-- Instagram -->
+    </div>
+    <div class="footer-copyright">
+      <p>Copyright © Glassed. All rights reserved.</p> <!-- Copyright information -->
+      <p>Sunglasses Like No other</p> <!-- Tagline -->
+    </div>
+  </div>
+</footer>
+</html>

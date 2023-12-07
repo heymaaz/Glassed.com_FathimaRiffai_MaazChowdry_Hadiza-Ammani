@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>View & Edit Products</title>
+	<!-- This line links the aboutUs.css stylesheet to the HTML document -->
+	<link rel="stylesheet" type="text/css" href="../css/staff.editProds.css">
+	 <!-- This line links the font awesome for social icons -->
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	 <style>/* CSS for navigation bar */
+	 #navbar {
+	   /*background colour is set to grey and overflow is hidden*/
+	   background-color: #333;
+	   overflow: hidden;
+	 }
+	 #navbar a {
+	   /*text are aligned at the center in white font and is floated to 
+	   the left with a padding of 14px 16px with font size of 17px*/
+	   float: left;
+	   color: white;
+	   text-align: center;
+	   padding: 14px 16px;
+	   text-decoration: none;
+	   font-size: 17px;
+	 }
+	 /*when staff hovers over it it changes colour and text colour changes to black*/
+	 #navbar a:hover {
+	   background-color: #ddd;
+	   color: black;
+	 }
+	 /*when staff clicks it changes colour and text colour changes to white*/
+	 #navbar a.active {
+	   background-color: #ada4a4;
+	   color: white;
+	 }
+   </style>
+   </head>
+	   <nav>
+		   <div class="logo">
+			 <img src="../imgs/Glassed_Logo 4.png" alt="logo">
+		   </div>
+		   <ul class="nav-links">
+			 <li><a href="index.php">Home</a></li>
+			 <li><a href="rayban.php">Rayban</a></li>
+			 <li><a href="chanel.php">Chanel</a></li>
+			 <li><a href="AbousUs.html">About Us</a></li>
+			 <li><a href="editProfile.html">Profile</a></li>
+			 <li><a href="basket.php">Basket</a></li>
+		   </ul>
+		 </nav>      
+   <div id="navbar">
+	 <a href="staff.ViewEditProds.html"class="active">View And Edit Products</a>
+	 <a href="staff.addProds.html">Add Products</a>
+	 <a href="staff.viewDel.html">View/Delete Orders</a>
+   </div>  
+<br>
+<body>
+
+<h1> View Products </h1>
+	<div id="Product"></div>
+	<script>
+	//Download Orders when page loads
+	window.onload = loadProduct;
+	
+	function loadProduct() {
+  let request = new XMLHttpRequest();
+
+  request.onload = () => {
+    if (request.status === 200) {
+      let products = JSON.parse(request.responseText);
+      let productTable = '<table>' +
+        '<tr>' +
+        '<th>Product Name</th>' +
+        '<th>Description</th>' +
+        '<th>Price (AED)</th>' +
+        '</tr>';
+
+      products.forEach(product => {
+        productTable += '<tr>' +
+          '<td>' + product.product_name + '</td>' +
+          '<td>' + product.product_description + '</td>' +
+          '<td>' + product.product_price + '</td>' +
+          '<td><button onclick="showEditForm(\'' + product._id + '\', \'' + product.product_name + '\', \'' + product.product_description + '\', \'' + product.product_price + '\')">Edit</button></td>' +
+          '</tr>';
+      });
+
+      productTable += '</table>';
+      document.getElementById("Product").innerHTML = productTable;
+    } else {
+      alert("Error communicating with server: " + request.status);
+    }
+  };
+
+  request.open("GET", "view.php");
+  request.send();
+}
+
+	//Loads orders into page
+	function displayOrder(jsonProduct) {
+    let products = JSON.parse(jsonProduct);
+    let html = "<table><tr><th>Product Name</th><th>Description</th><th>Price (AED)</th><th>Edit</th></tr>";
+    for (let i = 0; i < products.length; i++) {
+        let product = products[i];
+        html += "<tr>";
+        html += "<td>" + product.product_name + "</td>";
+        html += "<td>" + product.product_description + "</td>";
+        html += "<td>" + product.product_price + "</td>";
+        html += "<td><button onclick=\"showEditForm('" + product._id + "', '" + product.product_name + "', '" + product.product_description + "', '" + product.product_price + "')\">Edit</button></td>";
+        html += "</tr>";
+    }
+    html += "</table>";
+    document.getElementById("Product").innerHTML = html;
+}
+	</script>
+
+	<h2>Edit Product</h2>
+	<div id="edit-form" style="display:none;">
+		<form method="post" action="update.php">
+			<input type="hidden" name="id" value="">
+			<label for="name">Product Name:</label>
+			<input type="text" name="name" value=""><br>
+			<label for="description">Description:</label>
+			<textarea name="description"></textarea><br>
+			<label for="price">Price (AED):</label>
+			<input type="text" name="price" value=""><br>
+			<input type="submit" value="Save">
+			<button type="button" onclick="hideEditForm()">Cancel</button>
+		</form>
+	</div>
+	
+	<script>
+		function showEditForm(id, name, description, price) {
+			document.querySelector('input[name="id"]').value = id;
+			document.querySelector('input[name="name"]').value = name;
+			document.querySelector('textarea[name="description"]').value = description;
+			document.querySelector('input[name="price"]').value = price;
+			document.querySelector('#edit-form').style.display = 'block';
+		}
+		
+		function hideEditForm() {
+			document.querySelector('#edit-form').style.display = 'none';
+		}
+
+	</script>
+</body>
+
+<!-- Footer div for contact information -->
+<footer>
+	<div class="footer-container">
+	  <div class="footer-left">
+		<h3>Quick Info</h3> <!-- Section for brief introduction -->
+		<p>Glassed offers a wide selection of premium sunglasses from top brands like Rayban and Chanel. Glassed ensures
+		  100% authenticity and customer satisfaction on every purchase.
+		  Shop now for the latest styles and trends.</p> <!-- Introduction content -->
+	  </div>
+	  <div class="footer-right">
+		<h3>Contact Us</h3> <!-- Section for contact information -->
+		<p>Email: Glassed@shades.com</p> <!-- Email -->
+		<p>Phone: 042-550-6789</p> <!-- Phone number -->
+		<p>Address: Al Khail Street, Dubai, UAE</p> <!-- Address -->
+	  </div>
+	  <div class="footer-middle">
+		<h3>Social</h3> <!-- Section for contact Social -->
+		<a href="https://web.facebook.com" class="fa fa-facebook-square"></a><!-- Facebook -->
+		<a href="https://twitter.com" class="fa fa-twitter-square"></a><!-- Twitter -->
+		<a href="https://www.instagram.com" class="fa fa-instagram"></a><!-- Instagram -->
+	  </div>
+	  <div class="footer-copyright">
+		<p>Copyright © Glassed. All rights reserved.</p> <!-- Copyright information -->
+		<p>Sunglasses Like No other</p> <!-- Tagline -->
+	  </div>
+	</div>
+  </footer>
+  </html>
+</html>

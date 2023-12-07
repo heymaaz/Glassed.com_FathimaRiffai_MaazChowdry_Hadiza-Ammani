@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- The title of the website, displayed in the browser tab -->
+  <title>Ecommerce Navigation Bar</title>
+  <!-- This line links the aboutUs.css stylesheet to the HTML document -->
+  <link rel="stylesheet" type="text/css" href="../css/staff.addProds.css">
+     <!-- This line links the font awesome for social icons -->
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <style>
+    /* CSS for navigation bar */
+    #navbar {
+      /*background colour is set to grey and overflow is hidden*/
+      background-color: #333;
+      overflow: hidden;
+    }
+    #navbar a {
+      /*text are aligned at the center in white font and is floated to 
+      the left with a padding of 14px 16px with font size of 17px*/
+      float: left;
+      color: white;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+      font-size: 17px;
+    }
+    /*when staff hovers over it it changes colour and text colour changes to black*/
+    #navbar a:hover {
+      background-color: #ddd;
+      color: black;
+    }
+    /*when staff clicks it changes colour and text colour changes to white*/
+    #navbar a.active {
+      background-color: #ada4a4;
+      color: white;
+    }
+  </style>
+  </head>
+
+      <nav>
+          <div class="logo">
+            <img src="../imgs/Glassed_Logo 4.png" alt="logo">
+          </div>
+          <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="rayban.html">Rayban</a></li>
+            <li><a href="chanel.html">Chanel</a></li>
+            <li><a href="AbousUs.html">About Us</a></li>
+            <li><a href="editProfile.html">Profile</a></li>
+            <li><a href="basket.html">Basket</a></li>
+          </ul>
+        </nav>      
+<body>
+  <div id="navbar">
+    <a href="staff.ViewEditProds.html">View And Edit Products</a>
+    <a href="staff.addProds.html"class="active">Add Products</a>
+    <a href="staff.viewDel.html">View/Delete Orders</a>
+  </div>   
+        <body>
+            <div class="container">
+                <h1>Add Product</h1>
+                <!--FORM FOR PRODUCT DETAILS-->
+                <form action="staff.addProds.php" method="post">
+      
+
+                  <label for="product_name">Product Name:</label>
+                  <input type="text" id="product_name" name="product_name"><br>
+
+                  
+                  <label for="product_description">Description:</label>
+                  <textarea id="product_description" name="product_description"></textarea><br>
+                  
+                  <label for="product_price">Price: (AED)</label>
+                  <input type="number" id="product_price" name="product_price"><br>
+                 
+                  <label for="img">Image</label>
+                  <form action="upload_image.php" method="post" enctype="multipart/form-data">
+                    <input type="file" name="imageToUpload">
+                    <input type="submit" value="Upload Image" name="submit">
+                    <input type="submit">
+                </form>
+              </div>
+              <br>
+              <br>
+
+
+            </body>
+        
+<!-- Footer div for contact information -->
+<footer>
+  <div class="footer-container">
+    <div class="footer-left">
+      <h3>Quick Info</h3> <!-- Section for brief introduction -->
+      <p>Glassed offers a wide selection of premium sunglasses from top brands like Rayban and Chanel. Glassed ensures
+        100% authenticity and customer satisfaction on every purchase.
+        Shop now for the latest styles and trends.</p> <!-- Introduction content -->
+    </div>
+    <div class="footer-right">
+      <h3>Contact Us</h3> <!-- Section for contact information -->
+      <p>Email: Glassed@shades.com</p> <!-- Email -->
+      <p>Phone: 042-550-6789</p> <!-- Phone number -->
+      <p>Address: Al Khail Street, Dubai, UAE</p> <!-- Address -->
+    </div>
+    <div class="footer-middle">
+      <h3>Social</h3> <!-- Section for contact Social -->
+      <a href="https://web.facebook.com" class="fa fa-facebook-square"></a><!-- Facebook -->
+      <a href="https://twitter.com" class="fa fa-twitter-square"></a><!-- Twitter -->
+      <a href="https://www.instagram.com" class="fa fa-instagram"></a><!-- Instagram -->
+    </div>
+    <div class="footer-copyright">
+      <p>Copyright © Glassed. All rights reserved.</p> <!-- Copyright information -->
+      <p>Sunglasses Like No other</p> <!-- Tagline -->
+    </div>
+  </div>
+</footer>
+</html>

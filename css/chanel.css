@@ -1,0 +1,216 @@
+/*--------------------------------------- NAV BAR ------------------------------------------*/
+nav {
+    /*sets the navbar to be a flex container and aligns the items within it to be centered and evenly spaced */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /*adds padding around the navbar */
+    padding: 10px;
+    /*sets the background color of the navbar to be dark grey */
+    background-color: #90C5A9;
+    }
+    
+    .logo {
+    /* sets the size and position of the logo image */
+    object-fit: contain;
+    }
+    
+    .nav-links {
+    /*aligns the font and stretches the links to fill the navbar */
+    flex: 1;
+    display: flex;
+    justify-content: left;
+    /* sets the font size of the links */
+    font-size: 20px;
+    }
+    
+    .nav-links li {
+    /* Removes the bullet point from the list items */
+    list-style: none;
+    }
+    
+    .nav-links a:link, .nav-links a:visited {
+    /* sets the default color of the links to white */
+    color: rgb(0, 0, 0);
+    }
+    
+    .nav-links a:hover {
+    /* Changes the color of the links when hovered over to grey */
+    color: rgb(255, 255, 255);
+    }
+    
+    #about-link {
+    /* sets the color of the 'about' link to grey */
+    color: grey;
+    }
+   
+    
+  
+   /*----------------------------------- LOGIN & REG NAV BAR ------------------------------------------*/
+    /* set the flex property to 1 and display as flex for the nav-left class */
+  .nav-left{
+  flex:1;
+  display: flex;
+  /* align the content to the right within the nav-left class */
+  justify-content: right;
+  /* set the font-size for the text within the nav-left class */
+  font-size: 20px;
+  }
+  
+  /* remove any default list styling for the nav-left li class */
+  .nav-left li {
+  list-style: none;
+  }
+  
+  /* remove underlines and change the text color to white for the nav-left a class */
+  .nav-left a {
+  /* add a margin of 20px to the left of the text within the nav-left a class */
+  margin-left: 20px;
+  text-decoration: none;
+  color: white;
+  }
+  
+  /* Change the color of the links to white when they are left or visited */
+  .nav-left a:left, .nav-left a:visited {
+  color: white;
+  }
+  
+  /* Change the color of the links on hover /
+  /* Change the color of the text within the nav-left a class to grey when hovered over */
+  .nav-left a:hover {
+  color: rgb(0, 0, 0);
+  }
+  
+  /*set the default color of text within the nav-links a class as black*/
+  .nav-links a{
+  color: #000; /*default color*/
+  text-decoration: none;
+  padding: 10px;
+  }
+  /* change the color of the text within the nav-links a class to rgb(103, 116, 115)
+  when it has the active class*/
+  .nav-links a.active{
+  color: rgb(255, 255, 255); /*color when clicked*/
+  text-decoration: none;
+  padding: 10px;
+  }
+  /* This css code is used to style the login and registration navigation, 
+  it sets the layout, text color, hover color and active class of the links.*/
+    
+    
+  /*-------------------------------------------FOOTER-------------------------------------------------*/
+  footer {
+    /* Position the footer at the bottom of the page */
+  position:relative;
+    bottom: 0;
+    /* Set the width of the footer to 96% */
+    width: 96%;
+    /* Set the background color to #333 */
+    background-color: #90C5A9;
+    /* Set the text color to white */
+    color: rgb(0, 0, 0);
+    /* Add padding of 20px */
+    padding: 20px;
+    }
+    
+    /* Create a container for the footer elements */
+    .footer-container {
+    /* Set the container to display as a flexbox */
+    display: flex;
+    /* Justify the contents of the container to be spaced evenly between the left and right sides */
+    justify-content: space-between;
+    }
+    
+    /* Set the width of the left and right sections of the footer to 26% */
+    .footer-left, .footer-right {
+    width: 26%;
+    }
+    
+    /* Align the copyright text to the right */
+    .footer-copyright {
+    text-align: right;
+    }
+  #ulP {
+      display: flex;
+      flex-wrap: wrap;
+      list-style-type: none;
+  }
+    
+  #liP {
+      width: 33.33%;
+      padding: 1rem;
+      box-sizing: border-box;
+  }
+    
+  /* For the product images */
+  #productImg {
+      max-width: 75%;
+  }
+  a { color: inherit;text-decoration:none; } 
+  
+  /* For the add to cart buttons */
+  button {
+      background-color: #333;
+      color: #fff;
+      padding: 12px 20px;
+  }  
+  
+    /* To style the dropdown list */
+#sort-options {
+    padding: 0.5em;
+    font-size: 1em;
+    border: none;
+    background-color: #fff;
+    color: #000;
+  }
+  /* To style the dropdown list */
+  label{
+    padding-left: 80%;
+  }
+  
+  /* To style the slideshows */
+  #slideshow {
+
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
+    position: relative;
+    }
+    /*For the slideshow images*/
+    #slideshow img {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    }
+    /*For the search form*/
+    #search-form {
+        display: flex;
+        align-items: center;
+        margin-top: 0px;
+      }
+      /*For the search form*/
+      #search-input {
+        border: 1px solid #ccc;
+        padding: 10px;
+        flex: 1;
+      }
+      /*For the search form*/
+      #search-button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        cursor: pointer;
+      }
+      /*For the search form*/
+      #search-button:hover {
+        background-color: #3e8e41;
+      }
+      
+    
+  
+    
+    
+    
